@@ -181,7 +181,7 @@ async def time_test(
         f"📅 تاریخ افغانستان: "
         f"{now.strftime('%Y-%m-%d')}\n"
         f"⏰ ساعت افغانستان: "
-        f"{now.strftime('%H:%M:%S')}\n"
+        f"{now.strftime('%I:%M:%S')} {'قبل از ظهر' if now.hour < 12 else 'بعد از ظهر'}\n"
         f"🌍 منطقه زمانی: "
         f"{now.tzname()}\n\n"
         f"🕓 زمان UTC:\n"
@@ -385,7 +385,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"⚠️ ورود شما قبلاً ثبت شده است.\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان ورود: {attendance[5]}"
+                f"🕐 زمان ورود: {format_time_12h(attendance[5])}"
             )
 
             return
@@ -426,8 +426,8 @@ async def attendance_handler(
             await message.reply_text(
                 f"⚠️ ورود ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان ورود: {format_time_12h(current_time)}\n"
-                f"⏰ ساعت تعیین‌شده: {entry_time}\n\n"
+                f"🕐 زمان ورود: {current_time}\n"
+                f"⏰ ساعت تعیین‌شده: {format_time_12h(entry_time)}\n\n"
                 f"💰 جریمه تأخیر: "
                 f"{entry_fine} افغانی"
             )
@@ -437,8 +437,8 @@ async def attendance_handler(
             await message.reply_text(
                 f"🟢 ورود ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان ورود: {format_time_12h(current_time)}\n"
-                f"⏰ ساعت تعیین‌شده: {entry_time}\n\n"
+                f"🕐 زمان ورود: {current_time}\n"
+                f"⏰ ساعت تعیین‌شده: {format_time_12h(entry_time)}\n\n"
                 f"💰 جریمه: 0 افغانی"
             )
 
@@ -477,7 +477,7 @@ async def attendance_handler(
 
             await message.reply_text(
                 f"⚠️ خروج شما قبلاً ثبت شده است.\n\n"
-                f"🕐 زمان خروج: {attendance[6]}"
+                f"🕐 زمان خروج: {format_time_12h(attendance[6])}"
             )
 
             return
@@ -515,8 +515,8 @@ async def attendance_handler(
             await message.reply_text(
                 f"⚠️ خروج ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان خروج: {format_time_12h(current_time)}\n"
-                f"⏰ ساعت تعیین‌شده: {exit_time}\n\n"
+                f"🕐 زمان خروج: {current_time}\n"
+                f"⏰ ساعت تعیین‌شده: {format_time_12h(exit_time)}\n\n"
                 f"💰 جریمه خروج زودهنگام: "
                 f"{exit_fine} افغانی"
             )
@@ -526,8 +526,8 @@ async def attendance_handler(
             await message.reply_text(
                 f"🔵 خروج ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان خروج: {format_time_12h(current_time)}\n"
-                f"⏰ ساعت تعیین‌شده: {exit_time}\n\n"
+                f"🕐 زمان خروج: {current_time}\n"
+                f"⏰ ساعت تعیین‌شده: {format_time_12h(exit_time)}\n\n"
                 f"💰 جریمه: 0 افغانی"
             )
 
@@ -826,8 +826,8 @@ async def admin_callback(
 
                 text += (
                     f"{number}️⃣ {name}\n"
-                    f"🟢 ورود: {entry}\n"
-                    f"🔵 خروج: {exit_time}\n"
+                    f"🟢 ورود: {format_time_12h(entry) if entry else 'ثبت نشده'}\n"
+                    f"🔵 خروج: {format_time_12h(exit_time) if exit_time else 'ثبت نشده'}\n"
                     f"💰 جریمه: {fine} افغانی\n\n"
                 )
 
@@ -1544,8 +1544,8 @@ async def daily_report(
 
         text += (
             f"{number}️⃣ {name}\n"
-            f"🟢 ورود: {entry or 'ثبت نشده'}\n"
-            f"🔵 خروج: {exit_time or 'ثبت نشده'}\n"
+            f"🟢 ورود: {format_time_12h(entry) if entry else 'ثبت نشده'}\n"
+            f"🔵 خروج: {format_time_12h(exit_time) if exit_time else 'ثبت نشده'}\n"
             f"💰 جریمه: {fine} افغانی\n\n"
         )
 
@@ -1829,7 +1829,7 @@ def main():
 
     print(
         f"Current Afghanistan Time: "
-        f"{get_current_datetime().strftime('%Y-%m-%d %H:%M:%S')}"
+        f"{get_current_datetime().strftime('%Y-%m-%d %I:%M:%S')} {'قبل از ظهر' if get_current_datetime().hour < 12 else 'بعد از ظهر'}"
     )
 
     asyncio.run(
