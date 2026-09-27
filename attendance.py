@@ -426,7 +426,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"⚠️ ورود ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان ورود: {current_time}\n"
+                f"🕐 زمان ورود: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {entry_time}\n\n"
                 f"💰 جریمه تأخیر: "
                 f"{entry_fine} افغانی"
@@ -437,7 +437,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"🟢 ورود ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان ورود: {current_time}\n"
+                f"🕐 زمان ورود: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {entry_time}\n\n"
                 f"💰 جریمه: 0 افغانی"
             )
@@ -515,7 +515,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"⚠️ خروج ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان خروج: {current_time}\n"
+                f"🕐 زمان خروج: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {exit_time}\n\n"
                 f"💰 جریمه خروج زودهنگام: "
                 f"{exit_fine} افغانی"
@@ -526,7 +526,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"🔵 خروج ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان خروج: {current_time}\n"
+                f"🕐 زمان خروج: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {exit_time}\n\n"
                 f"💰 جریمه: 0 افغانی"
             )
