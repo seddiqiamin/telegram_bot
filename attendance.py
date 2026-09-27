@@ -60,9 +60,14 @@ def get_current_date():
 
 def get_current_time():
     """
-    ساعت فعلی افغانستان
+    ساعت فعلی افغانستان به صورت 12 ساعته
     """
-    return get_current_datetime().strftime("%H:%M")
+    now = get_current_datetime()
+
+    hour = now.strftime("%I:%M")
+    period = "قبل از ظهر" if now.hour < 12 else "بعد از ظهر"
+
+    return f"{hour} {period}"
 
 
 def time_to_minutes(time_string):
