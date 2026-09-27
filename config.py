@@ -12,4 +12,4 @@ if not BOT_TOKEN:
 if not ADMIN_IDS:
     raise ValueError("ADMIN_ID در فایل .env تنظیم نشده است")
 
-ADMIN_ID = int(ADMIN_IDS)
+ADMIN_IDS = int(ADMIN_IDS)
