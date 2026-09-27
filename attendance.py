@@ -540,7 +540,7 @@ async def admin_panel(
     if not user or not message:
         return
 
-    if user.id != ADMIN_IDS:
+    if user.id not in ADMIN_IDS:
 
         await message.reply_text(
             "⛔ شما دسترسی به پنل مدیریت ندارید."
@@ -625,7 +625,7 @@ async def admin_callback(
 
     user = query.from_user
 
-    if user.id != ADMIN_IDS:
+    if user.id not in ADMIN_IDS:
 
         await query.answer(
             "⛔ شما دسترسی ندارید.",
@@ -1189,7 +1189,7 @@ async def admin_setting_input(
         return
 
     # فقط مدیر
-    if user.id != ADMIN_IDS:
+    if user.id not in ADMIN_IDS:
         return
 
     action = context.user_data.get(
@@ -1393,7 +1393,7 @@ async def show_users(
     if not user:
         return
 
-    if user.id != ADMIN_IDS:
+    if user.id not in ADMIN_IDS:
 
         await update.effective_message.reply_text(
             "⛔ شما دسترسی ندارید."
@@ -1457,7 +1457,7 @@ async def daily_report(
     if not user or not message:
         return
 
-    if user.id != ADMIN_IDS:
+    if user.id not in ADMIN_IDS:
 
         await message.reply_text(
             "⛔ شما دسترسی ندارید."
@@ -1566,7 +1566,7 @@ async def monthly_report(
     if not user or not message:
         return
 
-    if user.id != ADMIN_IDS:
+    if user.id not in ADMIN_IDS:
 
         await message.reply_text(
             "⛔ شما دسترسی ندارید."
