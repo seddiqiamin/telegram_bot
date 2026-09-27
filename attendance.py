@@ -70,6 +70,26 @@ def get_current_time():
     return f"{hour} {period}"
 
 
+def format_time_12h(time_str):
+    """
+    تبدیل ساعت 24 ساعته به 12 ساعته برای نمایش
+    مثال: 17:00 -> 05:00 بعد از ظهر
+    """
+    try:
+        hour, minute = map(int, time_str.split(":"))
+
+        period = "قبل از ظهر" if hour < 12 else "بعد از ظهر"
+
+        hour_12 = hour % 12
+        if hour_12 == 0:
+            hour_12 = 12
+
+        return f"{hour_12:02d}:{minute:02d} {period}"
+
+    except (ValueError, AttributeError):
+        return time_str
+
+
 def time_to_minutes(time_string):
     """
     تبدیل HH:MM به دقیقه
@@ -1101,8 +1121,8 @@ async def admin_callback(
             f"🏢 گروه: {group_name}\n"
             f"🆔 Group ID: {group_id}\n"
             f"📌 Topic ID: {topic_id}\n\n"
-            f"🕐 ساعت ورود: {entry_time}\n"
-            f"🕐 ساعت خروج: {exit_time}\n\n"
+            f"🕐 ساعت ورود: {format_time_12h(entry_time)}\n"
+            f"🕐 ساعت خروج: {format_time_12h(exit_time)}\n\n"
             f"💰 جریمه ورود دیر: "
             f"{late_fine} افغانی\n"
             f"💰 جریمه خروج زود: "
