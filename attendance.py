@@ -60,32 +60,22 @@ def get_current_date():
 
 def get_current_time():
     """
-    ساعت فعلی افغانستان به صورت 12 ساعته
+    ساعت فعلی افغانستان برای محاسبات داخلی (24 ساعته)
     """
-    now = get_current_datetime()
-
-    hour = now.strftime("%I:%M")
-    period = "قبل از ظهر" if now.hour < 12 else "بعد از ظهر"
-
-    return f"{hour} {period}"
+    return get_current_datetime().strftime("%H:%M")
 
 
 def format_time_12h(time_str):
     """
-    تبدیل ساعت 24 ساعته به 12 ساعته برای نمایش
-    مثال: 17:00 -> 05:00 بعد از ظهر
+    تبدیل ساعت 24 ساعته به نمایش 12 ساعته
     """
     try:
         hour, minute = map(int, time_str.split(":"))
-
         period = "قبل از ظهر" if hour < 12 else "بعد از ظهر"
-
         hour_12 = hour % 12
         if hour_12 == 0:
             hour_12 = 12
-
         return f"{hour_12:02d}:{minute:02d} {period}"
-
     except (ValueError, AttributeError):
         return time_str
 
@@ -426,7 +416,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"⚠️ ورود ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان ورود: {current_time}\n"
+                f"🕐 زمان ورود: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {format_time_12h(entry_time)}\n\n"
                 f"💰 جریمه تأخیر: "
                 f"{entry_fine} افغانی"
@@ -437,7 +427,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"🟢 ورود ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان ورود: {current_time}\n"
+                f"🕐 زمان ورود: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {format_time_12h(entry_time)}\n\n"
                 f"💰 جریمه: 0 افغانی"
             )
@@ -515,7 +505,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"⚠️ خروج ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان خروج: {current_time}\n"
+                f"🕐 زمان خروج: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {format_time_12h(exit_time)}\n\n"
                 f"💰 جریمه خروج زودهنگام: "
                 f"{exit_fine} افغانی"
@@ -526,7 +516,7 @@ async def attendance_handler(
             await message.reply_text(
                 f"🔵 خروج ثبت شد\n\n"
                 f"👤 {user.full_name}\n"
-                f"🕐 زمان خروج: {current_time}\n"
+                f"🕐 زمان خروج: {format_time_12h(current_time)}\n"
                 f"⏰ ساعت تعیین‌شده: {format_time_12h(exit_time)}\n\n"
                 f"💰 جریمه: 0 افغانی"
             )
