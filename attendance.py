@@ -442,7 +442,8 @@ async def attendance_handler(
         "خدا حافظ",
         "خداحافظ",
         "خدا حافظ!",
-        "خداحافظ!"
+        "خداحافظ!",
+        "خدافظ"
     ]:
 
         attendance = get_today_attendance(
